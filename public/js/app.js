@@ -101118,7 +101118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_basic_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/basic/hooks */ "./resources/js/components/pages/basic/hooks.vue");
 /* harmony import */ var _components_pages_basic_methods__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/basic/methods */ "./resources/js/components/pages/basic/methods.vue");
 /* harmony import */ var _components_pages_home__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/home */ "./resources/js/components/pages/home.vue");
-/* harmony import */ var _components_pages_tags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/tags */ "./resources/js/components/pages/tags.vue");
+/* harmony import */ var _components_pages_tags__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/tags */ "./resources/js/components/pages/tags.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -101135,7 +101135,7 @@ var routes = [// projects routes...
   component: _components_pages_home__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/tags',
-  component: _components_pages_tags__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _components_pages_tags__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, // basic tutorials routes...
 {
   path: '/my-new-vue-route',
