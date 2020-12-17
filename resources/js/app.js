@@ -8,6 +8,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import router from './router'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
+
+Vue.use(ViewUI);
 
 /**
  * The following block of code may be used to automatically register your
