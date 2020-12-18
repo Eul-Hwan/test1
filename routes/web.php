@@ -13,20 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('app/create_tag', 'AdminController@addTag');
+Route::get('app/get_tags', 'AdminController@getTag');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('welcome');
-});
+// Route::get('/test', function () {
+//     return view('welcome');
+// });
 
-Route::get('/new', 'TestController@controllerMethod');
+// Route::get('/new', 'TestController@controllerMethod');
 
 Route::any('{slug}', function(){
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
