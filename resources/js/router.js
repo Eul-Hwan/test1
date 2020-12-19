@@ -6,9 +6,10 @@ import newRoutePage from './components/pages/newRoutePage'
 import hooks from './components/pages/basic/hooks'
 import methods from './components/pages/basic/methods'
 
-// project pages
+// admin project pages
 import home from './components/pages/home'
-import tags from './components/pages/tags'
+import tags from './admin/pages/tags'
+import category from './admin/pages/category'
 const routes = [
     // projects routes...
 
@@ -19,6 +20,10 @@ const routes = [
     {
         path: '/tags',
         component: tags
+    },
+    {
+        path: '/category',
+        component: category
     },
 
 

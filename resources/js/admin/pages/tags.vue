@@ -77,7 +77,7 @@
                         <p>Are you sure you want to delete tag?</p>
                     </div>
                     <div slot="footer">
-                        <Button type="error" size="large" long :loading="showDeleteModal" :disabled="showDeleteModal" @click="deleteTag">Delete</Button>
+                        <Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteTag">Delete</Button>
                     </div>
                 </Modal>
 			</div>
@@ -101,8 +101,9 @@ export default {
             },
             index : -1,
             showDeleteModal : false,
+            isDeleting : false,
             deleteItem : {},
-            i : -1
+            deletingIndex : -1
         }
     },
 
@@ -154,20 +155,20 @@ export default {
             this.index = index
         },
         async deleteTag() {
-            // if(!confirm('Are you sure you want to delete this tag?')) return
-            // tag.isDeleting = true
-            // this.$set(tag, 'isDeleting', true)
+            this.isDeleting = true
             const res = await this.callApi('post', 'app/delete_tag', this.deleteItem)
             if(res.status===200){
-                this.tags.splice(this.i, 1)
+                this.tags.splice(this.deletingIndex, 1)
                 this.s('Tag has been deleted successfully!')
             }else{
                 this.swr()
             }
+            this.isDeleting = false
+            this.showDeleteModal = false
         },
         showDeletingModal(tag, i) {
             this.deleteItem = tag
-            this.i = i
+            this.deletingIndex = i
             this.showDeleteModal = true
         }
     },
@@ -180,15 +181,5 @@ export default {
             this.swr()
         }
     }
-
-    // async created() {
-    //     const res = await this.callApi('post', '/app/create_tag', {tagName: 'testtag'});
-    //     if(res.status==200){
-    //         // console.log(res)
-    //     }else{
-    //         console.log(res)
-    //         console.log('running')
-    //     }
-    // }
 }
 </script>
