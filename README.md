@@ -7,3 +7,4 @@
 007. 2020-12-18 008강까지 Vue mixin and axios Add and Get tag list (DB)
 008. 2020-12-19 009강까지 Laravel backend validation (DB)
 009. 2020-12-19 010강까지 Image upload in Laravel and vue.js
+010. 2020-12-19 011강까지 Laravel vue frontend and backend file validation
