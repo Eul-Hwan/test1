@@ -11,3 +11,4 @@
 010. 2020-12-20 012강까지 Deleting file from server using laravel and vue instantly
 011. 2020-12-20 013강까지 Laravel vue add and get category with image
 012. 2020-12-20 014강까지 Laravel vue edit category with image reactively
+013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic

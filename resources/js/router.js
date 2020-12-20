@@ -10,9 +10,17 @@ import methods from './components/pages/basic/methods'
 import home from './components/pages/home'
 import tags from './admin/pages/tags'
 import category from './admin/pages/category'
-const routes = [
-    // projects routes...
 
+// vuex basic
+import usecom from './vuex/usecom'
+const routes = [
+    // vuex basic
+    {
+        path: '/testvuex',
+        component: usecom
+    },
+
+    // projects routes...
     {
         path: '/',
         component: home
