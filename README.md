@@ -12,3 +12,4 @@
 011. 2020-12-20 013강까지 Laravel vue add and get category with image
 012. 2020-12-20 014강까지 Laravel vue edit category with image reactively
 013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic
+014. 2020-12-21 017강까지 Vuex basic (actions, mutations and getters)

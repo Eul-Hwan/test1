@@ -2946,6 +2946,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comA__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comA */ "./resources/js/vuex/comA.vue");
 /* harmony import */ var _comB__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comB */ "./resources/js/vuex/comB.vue");
 /* harmony import */ var _comC__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./comC */ "./resources/js/vuex/comC.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2968,6 +2975,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -2976,11 +2985,14 @@ __webpack_require__.r(__webpack_exports__);
     return {// counter : 1000
     };
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])({
+    'counter': 'getCounter'
+  })),
+  methods: _objectSpread({
     changeCounter: function changeCounter() {
-      this.$store.commit('changeTheCounter', 1);
+      this.$store.dispatch('changeCounterAction', 1); // this.$store.commit('changeTheCounter', 1)
     }
-  },
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['changeCounterAction'])),
   created: function created() {// console.log(this.$store.state.counter)
   },
   components: {
@@ -87496,9 +87508,7 @@ var render = function() {
             _vm._v("I will show how all other component react to changes")
           ]),
           _vm._v(" "),
-          _c("h2", [
-            _vm._v("The master component : " + _vm._s(_vm.$store.state.counter))
-          ]),
+          _c("h2", [_vm._v("The master component : " + _vm._s(_vm.counter))]),
           _vm._v(" "),
           _c("div", [_c("comA")], 1),
           _vm._v(" "),
@@ -104903,10 +104913,27 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     counter: 1000
   },
+  getters: {
+    getCounter: function getCounter(state) {
+      // if(state.counter > 1000) return 'o my god, this is big...'
+      // return 'ok that is small'
+      return state.counter;
+    } // getCounterByHalf(state) {
+    //     return state.counter/2
+    // },
+
+  },
   mutations: {
     changeTheCounter: function changeTheCounter(state, data) {
       // console.log(data)
       state.counter += data;
+    }
+  },
+  actions: {
+    changeCounterAction: function changeCounterAction(_ref, data) {
+      var commit = _ref.commit;
+      // console.log(commit)
+      commit('changeTheCounter', data);
     }
   }
 }));
