@@ -8,3 +8,4 @@
 008. 2020-12-19 009강까지 Laravel backend validation (DB)
 009. 2020-12-19 010강까지 Image upload in Laravel and vue.js
 010. 2020-12-19 011강까지 Laravel vue frontend and backend file validation
+010. 2020-12-20 012강까지 Deleting file from server using laravel and vue instantly
