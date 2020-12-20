@@ -12,20 +12,24 @@
 								<!-- TABLE TITLE -->
 							<tr>
 								<th>ID</th>
-								<th>Tag name</th>
+								<th>Icon image</th>
+								<th>Category name</th>
 								<th>Created at</th>
 								<th>Action</th>
 							</tr>
 								<!-- TABLE TITLE -->
 
 								<!-- ITEMS -->
-							<tr v-for="(tag, i) in tags" :key="tag.id" v-if="tags.length">
-								<td>{{tag.id}}</td>
-								<td class="_table_name">{{tag.tagName}}</td>
-								<td>{{tag.created_at}}</td>
+							<tr v-for="(category, i) in categoryLists" :key="categoryLists.id" v-if="categoryLists.length">
+								<td>{{category.id}}</td>
+								<td class="table_image">
+                                    <img :src="category.iconImage" />
+                                </td>
+								<td class="_table_name">{{category.categoryName}}</td>
+								<td>{{category.created_at}}</td>
 								<td>
-                                    <Button type="info" size="small" @click="showEditModal(tag, i)">Edit</Button>
-                                    <Button type="error" size="small" @click="showDeletingModal(tag, i)" :loading="tag.isDeleting">Delete</Button>
+                                    <Button type="info" size="small" @click="showEditModal(category, i)">Edit</Button>
+                                    <Button type="error" size="small" @click="showDeletingModal(category, i)" :loading="category.isDeleting">Delete</Button>
 								</td>
 							</tr>
 								<!-- ITEMS -->
@@ -43,7 +47,7 @@
                     :closable="false"
                     >
 
-                    <Input v-model="data.tagName" placeholder="Add category name" />
+                    <Input v-model="data.categoryName" placeholder="Add category name" />
                     <div class="space"></div>
 
                     <Upload
@@ -72,7 +76,7 @@
 
                     <div slot="footer">
                         <Button type="default" @click="addModal=false">Close</Button>
-                        <Button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Adding..' : 'Add tag'}}</Button>
+                        <Button type="primary" @click="addCategory" :disabled="isAdding" :loading="isAdding">{{isAdding ? 'Adding..' : 'Add Category'}}</Button>
                     </div>
                 </Modal>
 
@@ -121,7 +125,7 @@ export default {
             addModal : false,
             editModal : false,
             isAdding : false,
-            tags : [],
+            categoryLists : [],
             editData : {
                 tagName : ''
             },
@@ -135,20 +139,25 @@ export default {
     },
 
     methods : {
-        async addTag() {
-            if(this.data.tagName.trim()=='') return this.e('Tag name is required')
-            const res = await this.callApi('post', 'app/create_tag', this.data)
+        async addCategory() {
+            if(this.data.categoryName.trim()=='') return this.e('Category name is required')
+            if(this.data.iconImage.trim()=='') return this.e('Icon image is required')
+            this.data.iconImage = `/uploads/${this.data.iconImage}`
+            const res = await this.callApi('post', 'app/create_category', this.data)
             if(res.status===201){
-                this.tags.unshift(res.data)
-                this.s('Tag has added successfully!')
+                this.categoryLists.unshift(res.data)
+                this.s('Category has added successfully!')
                 this.addModal = false
-                this.data.tagName = ''
+                this.data.categoryName = ''
+                this.data.iconImage = ''
             }else{
                 if(res.status==422){
-                    if(res.data.errors.tagName){
-                        this.e(res.data.errors.tagName[0])
+                    if(res.data.errors.categoryName){
+                        this.e(res.data.errors.categoryName[0])
                     }
-                    console.log(res.data.errors.tagName)
+                    if(res.data.errors.iconImage){
+                        this.e(res.data.errors.iconImage[0])
+                    }
                 }else{
                     this.swr()
                 }
@@ -202,8 +211,6 @@ export default {
             this.data.iconImage = res
         },
         handleError (res, file) {
-            // console.log('res', res)
-            // console.log('file', file)
             this.$Notice.warning({
                 title: 'The file format is incorrect',
                 desc: `${file.errors.file.length ? file.errors.file[0] : 'Something went wrong!'}`
@@ -235,9 +242,9 @@ export default {
 
     async created() {
         this.token = window.Laravel.csrfToken
-        const res = await this.callApi('get', 'app/get_tags')
+        const res = await this.callApi('get', 'app/get_category')
         if(res.status==200){
-            this.tags = res.data
+            this.categoryLists = res.data
         }else{
             this.swr()
         }
