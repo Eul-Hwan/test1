@@ -10,3 +10,4 @@
 010. 2020-12-19 011강까지 Laravel vue frontend and backend file validation
 010. 2020-12-20 012강까지 Deleting file from server using laravel and vue instantly
 011. 2020-12-20 013강까지 Laravel vue add and get category with image
+012. 2020-12-20 014강까지 Laravel vue edit category with image reactively
