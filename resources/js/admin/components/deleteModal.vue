@@ -14,7 +14,8 @@
                 <p>Are you sure you want to delete tag?</p>
             </div>
             <div slot="footer">
-                <Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteTag">Delete</Button>
+                <Button type="default" size="large" @click="closeModal">Close</Button>
+                <Button type="error" size="large" :loading="isDeleting" :disabled="isDeleting" @click="deleteTag">Delete</Button>
             </div>
         </Modal>
     </div>
@@ -40,7 +41,11 @@ export default {
                 this.swr()
                 this.$store.commit('setDeleteModal', false)
             }
+            this.isDeleting = false
         },
+        closeModal() {
+            this.$store.commit('setDeleteModal', false)
+        }
     },
     computed : {
         ...mapGetters(['getDeleteModalObj'])

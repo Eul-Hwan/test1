@@ -14,3 +14,4 @@
 013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic
 014. 2020-12-21 017강까지 Vuex basic (actions, mutations and getters)
 015. 2020-12-21 018강까지 Reusable delete modal using vuex and watch
+016. 2020-12-22 019강까지 Delete category using reusable delete component using vuex and watch

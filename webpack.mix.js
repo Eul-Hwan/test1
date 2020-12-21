@@ -11,6 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
+ // admin files...
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     // .postCss("resources/css/tailwind.css", "public/css", [
@@ -21,3 +22,6 @@ mix.styles([
     'public/css/grid.min.css',
     'public/css/main.css',
 ], 'public/css/all.css');
+
+
+//

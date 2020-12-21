@@ -202,9 +202,7 @@ export default {
     },
     watch : {
         getDeleteModalObj(obj){
-            // console.log(obj)
             if(obj.isDeleted){
-                // console.log('inside here')
                 this.tags.splice(obj.deletingIndex,1)
             }
         }
