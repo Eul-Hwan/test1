@@ -31,6 +31,7 @@ export default {
     data() {
         return {
             // counter : 1000
+            localVar : 'some value'
         }
     },
     computed : {
@@ -45,7 +46,10 @@ export default {
         },
         ...mapActions([
             'changeCounterAction'
-        ])
+        ]),
+        runSomethingWhenCounterChange() {
+            console.log('I am runnig based on each changes happening')
+        }
     },
     created() {
         // console.log(this.$store.state.counter)
@@ -54,6 +58,13 @@ export default {
         comA,
         comB,
         comC,
+    },
+    watch : {
+        counter(value) {
+            console.log('counter is changing', value)
+            this.runSomethingWhenCounterChange()
+            console.log('local var', this.localVar)
+        }
     }
 }
 </script>

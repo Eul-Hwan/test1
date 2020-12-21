@@ -4,7 +4,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state : {
-        counter : 1000
+        counter : 1000,
+        deleteModalObj : {
+            showDeleteModal : false,
+            deleteUrl : '',
+            data : null,
+            deletingIndex : -1,
+            isDeleted : false,
+        },
+        // tags : [],
     },
     getters : {
         getCounter(state) {
@@ -12,6 +20,9 @@ export default new Vuex.Store({
             // return 'ok that is small'
             return state.counter
         },
+        getDeleteModalObj(state) {
+            return state.deleteModalObj
+        }
         // getCounterByHalf(state) {
         //     return state.counter/2
         // },
@@ -20,6 +31,22 @@ export default new Vuex.Store({
         changeTheCounter(state, data){
             // console.log(data)
             state.counter += data
+        },
+        setDeleteModal(state, data){
+            const deleteModalObj = {
+                showDeleteModal : false,
+                deleteUrl : '',
+                data : null,
+                deletingIndex : -1,
+                isDeleted : data,
+            }
+            state.deleteModalObj = deleteModalObj
+            // state.deleteModalObj.isDeleted = data
+
+            // state.tags.splice
+        },
+        setDeletingModalObj(state, data){
+            state.deleteModalObj = data
         }
     },
     actions : {

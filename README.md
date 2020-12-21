@@ -13,3 +13,4 @@
 012. 2020-12-20 014강까지 Laravel vue edit category with image reactively
 013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic
 014. 2020-12-21 017강까지 Vuex basic (actions, mutations and getters)
+015. 2020-12-21 018강까지 Reusable delete modal using vuex and watch
