@@ -6,13 +6,15 @@ import newRoutePage from './components/pages/newRoutePage'
 import hooks from './components/pages/basic/hooks'
 import methods from './components/pages/basic/methods'
 
+// vuex basic
+import usecom from './vuex/usecom'
+
 // admin project pages
 import home from './components/pages/home'
 import tags from './admin/pages/tags'
 import category from './admin/pages/category'
+import adminusers from './admin/pages/adminusers'
 
-// vuex basic
-import usecom from './vuex/usecom'
 const routes = [
     // vuex basic
     {
@@ -32,6 +34,10 @@ const routes = [
     {
         path: '/category',
         component: category
+    },
+    {
+        path: '/adminusers',
+        component: adminusers
     },
 
 
