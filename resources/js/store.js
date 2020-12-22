@@ -13,6 +13,7 @@ export default new Vuex.Store({
             isDeleted : false,
         },
         // tags : [],
+        user: false
     },
     getters : {
         getCounter(state) {
@@ -22,7 +23,7 @@ export default new Vuex.Store({
         },
         getDeleteModalObj(state) {
             return state.deleteModalObj
-        }
+        },
         // getCounterByHalf(state) {
         //     return state.counter/2
         // },
@@ -47,7 +48,10 @@ export default new Vuex.Store({
         },
         setDeletingModalObj(state, data){
             state.deleteModalObj = data
-        }
+        },
+        updateUser(state, data){
+            state.user = data
+        },
     },
     actions : {
         changeCounterAction({commit}, data){
