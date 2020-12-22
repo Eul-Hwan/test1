@@ -10,6 +10,32 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function index(Request $request)
+    {
+        // first check if you are loggin and admin user ...
+        // return Auth::check();
+        if(!Auth::check() && $request->path() != 'login'){
+            return redirect('/login');
+        }
+        if(!Auth::check() && $request->path() == 'login'){
+            return view('welcome');
+        }
+        // you are already logged in... so check for if you are an admin user...
+        $user = Auth::user();
+        if($user->userType =='User'){
+            return redirect('/login');
+        }
+        if($request->path() == 'login'){
+            return redirect('/');
+        }
+        return view('welcome');
+        // return $request->path();
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
     public function addTag(Request $request)
     {
         // validate request
@@ -160,8 +186,16 @@ class AdminController extends Controller
             'password' => 'bail|required|min:6',
         ]);
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $user = Auth::user();
+            if($user->userType == 'User'){
+                Auth::logout();
+                return response()->json([
+                    'msg' => 'Incorrect login details',
+                ], 401);
+            }
             return response()->json([
                 'msg' => 'You are logged in',
+                'user' => $user
             ]);
         }else{
             return response()->json([
