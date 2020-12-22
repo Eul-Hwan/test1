@@ -17,3 +17,4 @@
 016. 2020-12-22 019강까지 Delete category using reusable delete component using vuex and watch
 017. 2020-12-22 020강까지 Create admin users in vue
 018. 2020-12-22 021강까지 Add-Edit user with Laravel unique validation
+019. 2020-12-22 022강까지 Laravel Vue login system with validation
