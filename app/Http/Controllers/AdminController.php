@@ -177,7 +177,8 @@ class AdminController extends Controller
     }
     public function getUsers()
     {
-        return User::where('role_id', '!=', 0)->get();
+        // return User::where('role_id', '!=', 0)->get();
+        return User::get();
     }
     public function adminLogin(Request $request)
     {
