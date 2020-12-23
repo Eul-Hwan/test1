@@ -19,19 +19,20 @@ class AdminCheck
     public function handle(Request $request, Closure $next)
     {
         // \Log::info('inside middlewear');
+        if($request->path()=='app/admin_login'){
+            return $next($request);
+        }
         if(!Auth::check()){
-            // return redirect('/login');
-            // return 'not loggedin';
-
             return response()->json([
-                'msg' => 'You are not allowed to access this route...'
-            ], 402);
+                'msg' => 'You are not allowed to access this route...',
+                'url' => $request->path()
+            ], 403);
         }
         $user = Auth::user();
         if($user->userType=='User'){
             return response()->json([
                 'msg' => 'You are not allowed to access this route...'
-            ], 402);
+            ], 403);
         }
 
         return $next($request);

@@ -21,3 +21,4 @@
 020. 2020-12-23 023강까지 Laravel Vue protected dashboard for logged in users
 021. 2020-12-23 024강까지 How to pass logged in users details in laravel Dynamic menu
 022. 2020-12-23 025강까지 Laravel prefix and middleware, pretecting api routes
+023. 2020-12-23 026강까지 Create role in laravel

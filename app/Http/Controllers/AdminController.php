@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -202,5 +203,29 @@ class AdminController extends Controller
                 'msg' => 'Incorrect login details',
             ], 401);
         }
+    }
+    public function addRole(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'roleName' => 'required',
+        ]);
+        return Role::create([
+            'roleName' => $request->roleName
+        ]);
+    }
+    public function editRole(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'roleName' => 'required',
+        ]);
+        return Role::where('id', $request->id)->update([
+            'roleName' => $request->roleName
+        ]);
+    }
+    public function getRoles()
+    {
+        return Role::all();
     }
 }
