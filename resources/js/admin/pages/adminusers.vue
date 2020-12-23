@@ -57,9 +57,9 @@
                         <Input type="password" v-model="data.password" placeholder="Password" />
                     </div>
                     <div class="space">
-                        <Select v-model="data.userType" placeholder="Select admin type">
-                            <Option value="Admin">Admin</Option>
-                            <Option value="Editor">Editor</Option>
+                        <Select v-model="data.role_id" placeholder="Select admin type">
+                            <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
+                            <!-- <Option value="Editor">Editor</Option> -->
                         </Select>
                     </div>
 
@@ -88,7 +88,7 @@
                         <Input type="password" v-model="editData.password" placeholder="Password" />
                     </div>
                     <div class="space">
-                        <Select v-model="editData.userType" placeholder="Select admin type">
+                        <Select v-model="editData.role_id" placeholder="Select admin type">
                             <Option value="Admin">Admin</Option>
                             <Option value="Editor">Editor</Option>
                         </Select>
@@ -119,7 +119,8 @@ export default {
                 fullName : '',
                 email : '',
                 password : '',
-                userType : 'Admin',
+                // userType : 'Admin',
+                role_id : null
             },
             addModal : false,
             editModal : false,
@@ -132,7 +133,8 @@ export default {
             showDeleteModal : false,
             isDeleting : false,
             deleteItem : {},
-            deletingIndex : -1
+            deletingIndex : -1,
+            roles : [],
         }
     },
 
@@ -141,11 +143,11 @@ export default {
             if(this.data.fullName.trim()=='') return this.e('Full name is required')
             if(this.data.email.trim()=='') return this.e('Email is required')
             if(this.data.password.trim()=='') return this.e('Psssword is required')
-            if(this.data.userType.trim()=='') return this.e('User type is required')
+            if(!this.data.role_id) return this.e('User type is required')
 
             const res = await this.callApi('post', 'app/create_user', this.data)
             if(res.status===201){
-                this.tags.unshift(res.data)
+                this.users.unshift(res.data)
                 this.s('Admin user has been added successfully!')
                 this.addModal = false
                 this.data.tagName = ''
@@ -169,7 +171,7 @@ export default {
         async editAdmin() {
             if(this.editData.fullName.trim()=='') return this.e('Full name is required')
             if(this.editData.email.trim()=='') return this.e('Email is required')
-            if(this.editData.userType.trim()=='') return this.e('User type is required')
+            if(!this.editData.role_id) return this.e('User type is required')
             const res = await this.callApi('post', 'app/edit_user', this.editData)
             if(res.status===200){
                 this.users[this.index] = this.editData
@@ -226,9 +228,20 @@ export default {
     },
 
     async created() {
-        const res = await this.callApi('get', 'app/get_users')
+        const [res, resRole] = await Promise.all([
+            this.callApi('get', 'app/get_users'),
+            this.callApi('get', 'app/get_roles')
+        ])
+        // const res = await this.callApi('get', 'app/get_users')
+        // const resRole = await this.callApi('get', 'app/get_roles')
+
         if(res.status==200){
             this.users = res.data
+        }else{
+            this.swr()
+        }
+        if(resRole.status==200){
+            this.roles = resRole.data
         }else{
             this.swr()
         }

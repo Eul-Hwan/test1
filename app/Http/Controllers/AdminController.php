@@ -143,14 +143,14 @@ class AdminController extends Controller
             'fullName' => 'required',
             'email' => 'bail|required|email|unique:users',
             'password' => 'bail|required|min:6',
-            'userType' => 'required',
+            'role_id' => 'required',
         ]);
         $password = bcrypt($request->password);
         $user = User::create([
             'fullName' => $request->fullName,
             'email' => $request->email,
             'password' => $password,
-            'userType' => $request->userType,
+            'role_id' => $request->role_id,
         ]);
         return $user;
     }
@@ -161,12 +161,12 @@ class AdminController extends Controller
             'fullName' => 'required',
             'email' => "bail|required|email|unique:users,email,$request->id",
             'password' => 'min:6',
-            'userType' => 'required',
+            'role_id' => 'required',
         ]);
         $data = [
             'fullName' => $request->fullName,
             'email' => $request->email,
-            'userType' => $request->userType,
+            'role_id' => $request->role_id,
         ];
         if($request->password){
             $password = bcrypt($request->password);
@@ -177,7 +177,7 @@ class AdminController extends Controller
     }
     public function getUsers()
     {
-        return User::where('userType', '!=', 'User')->get();
+        return User::where('role_id', '!=', 0)->get();
     }
     public function adminLogin(Request $request)
     {
@@ -188,7 +188,14 @@ class AdminController extends Controller
         ]);
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            if($user->userType == 'User'){
+            // return response()->json([
+            //     'msg' => $user->role(),
+            // ], 401);
+            // dd($user->role());
+            // return $user->role;
+            // \Log::info($user->role);
+            // return;
+            if($user->role->isAdmin == 0){
                 Auth::logout();
                 return response()->json([
                     'msg' => 'Incorrect login details',
