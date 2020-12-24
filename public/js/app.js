@@ -2511,13 +2511,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       data: {
         roleName: '',
-        role_id: null
+        id: null
       },
+      isSending: false,
       roles: [],
       resources: [{
         resourceName: 'Tags',
@@ -2564,35 +2567,78 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }]
     };
   },
-  methods: {},
-  created: function created() {
-    var _this = this;
+  methods: {
+    assignRoles: function assignRoles() {
+      var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // console.log(this.resources)
+                data = JSON.stringify(_this.resources);
+                _context.next = 3;
+                return _this.callApi('post', 'app/assign_roles', {
+                  'permission': data,
+                  id: _this.data.id
+                });
+
+              case 3:
+                res = _context.sent;
+
+                if (res.status == 200) {
+                  _this.s('Role has been assigned successfully!');
+                } else {
+                  _this.swr();
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              console.log(_this.$route);
-              _context.next = 3;
-              return _this.callApi('get', 'app/get_roles');
+              console.log(_this2.$route);
+              _context2.next = 3;
+              return _this2.callApi('get', 'app/get_roles');
 
             case 3:
-              res = _context.sent;
+              res = _context2.sent;
 
               if (res.status == 200) {
-                _this.roles = res.data;
+                _this2.roles = res.data;
+
+                if (res.data.length) {
+                  _this2.data.id = res.data[0].id;
+
+                  if (res.data[0].permission) {
+                    _this2.resources = JSON.parse(res.data[0].permission);
+                  }
+                }
               } else {
-                _this.swr();
+                _this2.swr();
               }
 
             case 5:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }))();
   }
 });
@@ -87621,11 +87667,11 @@ var render = function() {
                     staticStyle: { width: "300px" },
                     attrs: { placeholder: "Select admin type" },
                     model: {
-                      value: _vm.data.role_id,
+                      value: _vm.data.id,
                       callback: function($$v) {
-                        _vm.$set(_vm.data, "role_id", $$v)
+                        _vm.$set(_vm.data, "id", $$v)
                       },
-                      expression: "data.role_id"
+                      expression: "data.id"
                     }
                   },
                   _vm._l(_vm.roles, function(r, i) {
@@ -87716,7 +87762,27 @@ var render = function() {
                         1
                       )
                     ])
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "center_button" },
+                    [
+                      _c(
+                        "Button",
+                        {
+                          attrs: {
+                            type: "primary",
+                            loading: _vm.isSending,
+                            disabled: _vm.isSending
+                          },
+                          on: { click: _vm.assignRoles }
+                        },
+                        [_vm._v("Assign")]
+                      )
+                    ],
+                    1
+                  )
                 ],
                 2
               )

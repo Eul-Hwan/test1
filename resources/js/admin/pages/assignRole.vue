@@ -7,7 +7,7 @@
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
 					<p class="_title0">
                         Role Management
-                        <Select v-model="data.role_id" placeholder="Select admin type" style="width:300px">
+                        <Select v-model="data.id" placeholder="Select admin type" style="width:300px">
                             <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
                         </Select>
                     </p>
@@ -34,7 +34,9 @@
 
 							</tr>
 								<!-- ITEMS -->
-
+                            <div class="center_button">
+                                <Button type="primary" :loading="isSending" :disabled="isSending" @click="assignRoles">Assign</Button>
+                            </div>
 
 						</table>
 					</div>
@@ -51,8 +53,9 @@ export default {
         return {
             data : {
                 roleName : '',
-                role_id : null
+                id : null
             },
+            isSending : false,
             roles : [],
 
             resources : [
@@ -67,14 +70,29 @@ export default {
     },
 
     methods : {
-
+        async assignRoles() {
+            // console.log(this.resources)
+            let data = JSON.stringify(this.resources)
+            const res = await this.callApi('post', 'app/assign_roles', {'permission' : data, id: this.data.id})
+            if(res.status==200){
+                this.s('Role has been assigned successfully!')
+            }else{
+                this.swr()
+            }
+        }
     },
 
     async created() {
         console.log(this.$route)
         const res = await this.callApi('get', 'app/get_roles')
         if(res.status==200){
-            this.roles = res.data
+            this.roles = res.data;
+            if(res.data.length){
+                this.data.id = res.data[0].id
+                if(res.data[0].permission){
+                    this.resources = JSON.parse(res.data[0].permission)
+                }
+            }
         }else{
             this.swr()
         }

@@ -24,3 +24,4 @@
 023. 2020-12-23 026강까지 Create role in laravel
 024. 2020-12-23 027강까지 Fixing the current admin panel (DB change)
 025. 2020-12-23 028강까지 Assign the role for different resources
+026. 2020-12-24 029강까지 Insert permission different resources
