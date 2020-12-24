@@ -2524,7 +2524,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       roles: [],
       resources: [{
         resourceName: 'Tags',
-        read: true,
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'tags'
+      }, {
+        resourceName: 'Category',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'category'
+      }, {
+        resourceName: 'Admin Users',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'adminusers'
+      }, {
+        resourceName: 'Role',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'role'
+      }, {
+        resourceName: 'Assign Role',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'assignRole'
+      }, {
+        resourceName: 'Home',
+        read: false,
+        write: false,
+        update: false,
+        "delete": false,
+        name: 'home'
+      }],
+      defaultResourcesPermission: [{
+        resourceName: 'Tags',
+        read: false,
         write: false,
         update: false,
         "delete": false,
@@ -2572,7 +2615,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var data, res;
+        var data, res, index;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2590,6 +2633,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res.status == 200) {
                   _this.s('Role has been assigned successfully!');
+
+                  index = _this.roles.findIndex(function (role) {
+                    return role.id == _this.data.id;
+                  });
+                  _this.roles[index].permission = data;
                 } else {
                   _this.swr();
                 }
@@ -2601,10 +2649,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    changeAdmin: function changeAdmin() {
+      var _this2 = this;
+
+      // console.log(this.data.id)
+      var index = this.roles.findIndex(function (role) {
+        return role.id == _this2.data.id;
+      });
+      var permission = this.roles[index].permission;
+
+      if (!permission) {
+        this.resources = this.defaultResourcesPermission;
+      } else {
+        this.resources = JSON.parse(permission);
+      } // console.log(permission)
+
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var res;
@@ -2612,25 +2676,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              console.log(_this2.$route);
+              console.log(_this3.$route);
               _context2.next = 3;
-              return _this2.callApi('get', 'app/get_roles');
+              return _this3.callApi('get', 'app/get_roles');
 
             case 3:
               res = _context2.sent;
 
               if (res.status == 200) {
-                _this2.roles = res.data;
+                _this3.roles = res.data;
 
                 if (res.data.length) {
-                  _this2.data.id = res.data[0].id;
+                  _this3.data.id = res.data[0].id;
 
                   if (res.data[0].permission) {
-                    _this2.resources = JSON.parse(res.data[0].permission);
+                    _this3.resources = JSON.parse(res.data[0].permission);
                   }
                 }
               } else {
-                _this2.swr();
+                _this3.swr();
               }
 
             case 5:
@@ -87666,6 +87730,7 @@ var render = function() {
                   {
                     staticStyle: { width: "300px" },
                     attrs: { placeholder: "Select admin type" },
+                    on: { "on-change": _vm.changeAdmin },
                     model: {
                       value: _vm.data.id,
                       callback: function($$v) {
