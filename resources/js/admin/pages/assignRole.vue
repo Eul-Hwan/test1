@@ -64,7 +64,7 @@ export default {
                 {resourceName: 'Admin Users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
                 {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
                 {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
-                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: 'home'},
+                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
             ],
             defaultResourcesPermission : [
                 {resourceName: 'Tags', read: false, write: false, update: false, delete: false, name: 'tags'},
@@ -72,7 +72,7 @@ export default {
                 {resourceName: 'Admin Users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
                 {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
                 {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
-                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: 'home'},
+                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
             ],
         }
     },
