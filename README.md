@@ -26,3 +26,4 @@
 025. 2020-12-23 028강까지 Assign the role for different resources
 026. 2020-12-24 029강까지 Insert permission different resources
 027. 2020-12-24 030강까지 Change user permission using vue (DB)
+028. 2020-12-24 031강까지 Control the user access to the resources by permission
