@@ -7,11 +7,11 @@
 007. 2020-12-18 008강까지 Vue mixin and axios Add and Get tag list (DB)
 008. 2020-12-19 009강까지 Laravel backend validation (DB)
 009. 2020-12-19 010강까지 Image upload in Laravel and vue.js
-010. 2020-12-19 011강까지 Laravel vue frontend and backend file validation
+010. 2020-12-19 011강까지 Laravel vue frontend and backend file validation (012강 1분 34초 보고 이미지 업로드 부분 수정)
 010. 2020-12-20 012강까지 Deleting file from server using laravel and vue instantly
 011. 2020-12-20 013강까지 Laravel vue add and get category with image
-012. 2020-12-20 014강까지 Laravel vue edit category with image reactively
-013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic
+012. 2020-12-20 014강까지 Laravel vue edit category with image reactively (이미지 지울때 에러 21분에 해결)
+013. 2020-12-20 015~016강까지  Vuex install in Laravel vuex baic (015강에 테스트로 data에 적어 넣는 부분이 있지만 없어도 가능)
 014. 2020-12-21 017강까지 Vuex basic (actions, mutations and getters)
 015. 2020-12-21 018강까지 Reusable delete modal using vuex and watch
 016. 2020-12-22 019강까지 Delete category using reusable delete component using vuex and watch
