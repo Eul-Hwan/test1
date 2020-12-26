@@ -29,3 +29,4 @@
 028. 2020-12-24 031강까지 Control the user access to the resources by permission
 029. 2020-12-24 032강까지 Laravel vue Dynamic Menu (DB change)
 030. 2020-12-25 033강까지 Control complete CRUD of users by permission
+031. 2020-12-26 034강까지 Install Editor.js in vue.js

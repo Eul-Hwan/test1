@@ -59,20 +59,23 @@ export default {
             roles : [],
 
             resources : [
+                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
                 {resourceName: 'Tags', read: false, write: false, update: false, delete: false, name: 'tags'},
                 {resourceName: 'Category', read: false, write: false, update: false, delete: false, name: 'category'},
+                {resourceName: 'Create blogs', read: false, write: false, update: false, delete: false, name: 'createBlog'},
                 {resourceName: 'Admin Users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
                 {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
                 {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
-                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
             ],
             defaultResourcesPermission : [
+                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
                 {resourceName: 'Tags', read: false, write: false, update: false, delete: false, name: 'tags'},
                 {resourceName: 'Category', read: false, write: false, update: false, delete: false, name: 'category'},
+                {resourceName: 'Create blogs', read: false, write: false, update: false, delete: false, name: 'createBlog'},
+
                 {resourceName: 'Admin Users', read: false, write: false, update: false, delete: false, name: 'adminusers'},
                 {resourceName: 'Role', read: false, write: false, update: false, delete: false, name: 'role'},
                 {resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name: 'assignRole'},
-                {resourceName: 'Home', read: false, write: false, update: false, delete: false, name: '/'},
             ],
         }
     },
@@ -111,7 +114,7 @@ export default {
             if(res.data.length){
                 this.data.id = res.data[0].id
                 if(res.data[0].permission){
-                    this.resources = JSON.parse(res.data[0].permission)
+                    this.resources = JSON.parse(res.data[0].permission) // 여기서 DB데이터 변경
                 }
             }
         }else{
