@@ -31,3 +31,4 @@
 030. 2020-12-25 033강까지 Control complete CRUD of users by permission
 031. 2020-12-26 034강까지 Install Editor.js in vue.js 
 032. 2020-12-27 035강까지 (설명)Understanding blog read write optimization and blog style (032 오타수정 writed -> write)
+033. 2020-12-27 036강까지 Upload image in editor.js & understanding the concept of deleting unused file from server

@@ -15,6 +15,8 @@
                             save-button-id="save-button"
                             :init-data="initData"
                             @save="onSave"
+                            :config="config"
+
                         />
                     </div>
                     <div class="_input_field">
@@ -38,11 +40,15 @@ export default {
     data() {
         return {
             config: {
-                image: {
-                // Like in https://github.com/editor-js/image#config-params
-                    field: 'image',
-                    types: 'image/*',
-                },
+                // image: {
+                // // Like in https://github.com/editor-js/image#config-params
+                //     endpoints: {
+                //         byFile: 'http://localhost:8080/image',
+                //         byUrl: 'http://localhost:8080/image-by-url',
+                //     },
+                //     field: 'image',
+                //     types: 'image/*',
+                // },
             },
             initData: null,
             data: {
