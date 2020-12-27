@@ -76,7 +76,7 @@ export default {
             return this.checkUserPermission('read')
         },
         isWritePermitted() {
-            return this.checkUserPermission('writed')
+            return this.checkUserPermission('write')
         },
         isUpdatePermitted() {
             return this.checkUserPermission('update')
