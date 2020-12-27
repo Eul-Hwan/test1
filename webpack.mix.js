@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
  // admin files...
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/app.scss', 'public/css').version()
     // .postCss("resources/css/tailwind.css", "public/css", [
     //     require("tailwindcss"),
     //    ]);

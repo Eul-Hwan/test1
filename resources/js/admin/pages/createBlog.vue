@@ -7,6 +7,10 @@
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
 					<p class="_title0">Role Management <Button @click="addModal=true"><Icon type="md-add" /> Add a new role</Button></p>
 
+                    <div class="_input_field">
+                        <Input type="text" v-model="data.title" placeholder="Title" />
+                    </div>
+
 					<div class="_overflow _table_div blog_editor">
                         <editor
                             ref="editor"
@@ -19,11 +23,24 @@
 
                         />
                     </div>
+
                     <div class="_input_field">
-                        <Input type="text" placeholder="title" />
+                        <Input type="textarea" v-model="data.post_excerpt" :rows="4" placeholder="Post excerpt" />
                     </div>
+
                     <div class="_input_field">
-                        <Button @click="save">Save the data</Button>
+                        <Select filterable multiple placeholder="Select Category" v-model="data.category_id">
+                            <Option v-for="(c, i) in category" :value="c.id" :key="i">{{ c.categoryName }}</Option>
+                        </Select>
+                    </div>
+
+                    <div class="_input_field">
+                        <Input type="textarea" v-model="data.metaDescription" :rows="4" placeholder="Meta Description" />
+                    </div>
+
+
+                    <div class="_input_field">
+                        <Button @click="save" :loading="isCreating" :disabled="isCreating">{{isCreating ? 'Please wait...' : 'Create blog'}}</Button>
 					</div>
 				</div>
 
@@ -40,20 +57,20 @@ export default {
     data() {
         return {
             config: {
-                // image: {
-                // // Like in https://github.com/editor-js/image#config-params
-                //     endpoints: {
-                //         byFile: 'http://localhost:8080/image',
-                //         byUrl: 'http://localhost:8080/image-by-url',
-                //     },
-                //     field: 'image',
-                //     types: 'image/*',
-                // },
+
             },
             initData: null,
             data: {
-
-            }
+                title : '',
+                post : '',
+                post_excerpt : '',
+                metaDescription : '',
+                category_id : [],
+                jsonData: null
+            },
+            articleHTML: '',
+            category : [],
+            isCreating: false,
 
         }
     },
@@ -82,7 +99,19 @@ export default {
             var data = response
             // this.data.jsonData = JSON.stringify(data)
             await this.outputHtml(data.blocks)
-            console.log(this.articleHTML)
+            this.data.post = this.articleHTML
+            this.data.jsonData = JSON.stringify(data)
+            this.isCreating = true
+            const res = await this.callApi('post', 'app/create-blog', this.data)
+            if(res.status===201){
+                this.s('Blog has been created successfully~!')
+                // redirect...
+            }else{
+                this.swr()
+            }
+            this.isCreating = false
+            // console.log(this.articleHTML)
+            // console.log(data)
         },
         async save(){
             this.$refs.editor.save()
@@ -134,10 +163,16 @@ export default {
                         return '';
                 }
             });
-        }
-
+        },
     },
-
+    async created(){
+            const res = await this.callApi('get', 'app/get_category')
+            if(res.status==200){
+                this.category = res.data
+            }else{
+                this.swr()
+            }
+        }
 
 }
 </script>
@@ -159,7 +194,7 @@ export default {
         border: 1px solid #57a3fa;
     }
     ._input_field{
-        margin: 20px 0 0 160px;
+        margin: 20px 0 20px 160px;
         width: 717px;
     }
 </style>

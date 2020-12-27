@@ -11,7 +11,7 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'post', 'post_excerpt', 'slug', 'user_id', 'featuredImage', 'metaDescription', 'views'];
+    protected $fillable = ['title', 'post', 'post_excerpt', 'slug', 'user_id', 'featuredImage', 'metaDescription', 'views', 'jsonData'];
 
     public function setTitleAttribute($title)
     {

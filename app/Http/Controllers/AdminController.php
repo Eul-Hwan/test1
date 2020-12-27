@@ -295,4 +295,16 @@ class AdminController extends Controller
         ]);
         return $title;
     }
+    public function createBlog(Request $request)
+    {
+        return Blog::create([
+            'title' => $request->title,
+            'post' => $request->post,
+            'post_excerpt' => $request->post_excerpt,
+            'user_id' => Auth::user()->id,
+            'metaDescription' => $request->metaDescription,
+            'jsonData' => $request->jsonData,
+
+        ]);
+    }
 }
