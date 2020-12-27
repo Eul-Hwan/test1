@@ -35,3 +35,4 @@
 034. 2020-12-27 037강까지 Editor.js josn data to visual html conversion (Jsion 파일을 사용하기 위해서 백업내용 활용)
 035. 2020-12-27 038강 5분19초 부분 Laravel8에서는 DB title부분에 null을 허용해줘야 한다. 038강까지 Generate unique slug using Laravel mutator
 036. 2020-12-27 039강 Laravel versioning using mix and blog creation (DB jsonData추가)
+037. 2020-12-27 040강 Add multiple categories and tags using single query

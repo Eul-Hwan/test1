@@ -33,6 +33,11 @@
                             <Option v-for="(c, i) in category" :value="c.id" :key="i">{{ c.categoryName }}</Option>
                         </Select>
                     </div>
+                    <div class="_input_field">
+                        <Select filterable multiple placeholder="Select Tag" v-model="data.tag_id">
+                            <Option v-for="(t, i) in tag" :value="t.id" :key="i">{{ t.tagName }}</Option>
+                        </Select>
+                    </div>
 
                     <div class="_input_field">
                         <Input type="textarea" v-model="data.metaDescription" :rows="4" placeholder="Meta Description" />
@@ -66,10 +71,12 @@ export default {
                 post_excerpt : '',
                 metaDescription : '',
                 category_id : [],
+                tag_id : [],
                 jsonData: null
             },
             articleHTML: '',
             category : [],
+            tag : [],
             isCreating: false,
 
         }
@@ -103,7 +110,7 @@ export default {
             this.data.jsonData = JSON.stringify(data)
             this.isCreating = true
             const res = await this.callApi('post', 'app/create-blog', this.data)
-            if(res.status===201){
+            if(res.status===200){
                 this.s('Blog has been created successfully~!')
                 // redirect...
             }else{
@@ -166,9 +173,13 @@ export default {
         },
     },
     async created(){
-            const res = await this.callApi('get', 'app/get_category')
-            if(res.status==200){
-                this.category = res.data
+            const [cat, tag] = await Promise.all([
+                this.callApi('get', 'app/get_category'),
+                this.callApi('get', 'app/get_tags'),
+            ])
+            if(cat.status==200){
+                this.category = cat.data
+                this.tag = tag.data
             }else{
                 this.swr()
             }

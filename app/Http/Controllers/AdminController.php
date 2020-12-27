@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
 use App\Models\Tag;
+use App\Models\Blog;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Blogtag;
 use App\Models\Category;
+use App\Models\Blogcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -297,14 +299,40 @@ class AdminController extends Controller
     }
     public function createBlog(Request $request)
     {
-        return Blog::create([
+        $categories = $request->category_id;
+        $tags = $request->tag_id;
+
+        $blogCategories = [];
+        $blogTags = [];
+
+
+        $blog = Blog::create([
             'title' => $request->title,
             'post' => $request->post,
             'post_excerpt' => $request->post_excerpt,
             'user_id' => Auth::user()->id,
             'metaDescription' => $request->metaDescription,
             'jsonData' => $request->jsonData,
-
         ]);
+        // insert blog categories
+        foreach($categories as $c){
+            array_push($blogCategories, ['category_id' => $c, 'blog_id' => $blog->id]);
+        }
+        Blogcategory::insert($blogCategories);
+        // insert blog tags
+        foreach($tags as $t){
+            array_push($blogTags, ['tag_id' => $t, 'blog_id' => $blog->id]);
+        }
+        Blogtag::insert($blogTags);
+
+
+        // foreach($categories as $c){
+        //     Blogcategory::create([
+        //         'category_id' => $c,
+        //         'blog_id' => $blog->id,
+        //     ]);
+        // }
+
+        return 'done';
     }
 }
