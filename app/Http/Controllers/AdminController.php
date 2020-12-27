@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\Role;
 use App\Models\User;
@@ -280,5 +281,18 @@ class AdminController extends Controller
         return Role::where('id', $request->id)->update([
             'permission' => $request->permission
         ]);
+    }
+    public function slug()
+    {
+        $title = 'This is a nice title changed';
+        return Blog::create([
+            'title' => $title,
+            'post' => 'some post',
+            'post_excerpt' => 'aead',
+            'user_id' => 1,
+            'metaDescription' => 'aead',
+
+        ]);
+        return $title;
     }
 }
