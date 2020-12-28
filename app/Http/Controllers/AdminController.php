@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Blogcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -305,34 +306,35 @@ class AdminController extends Controller
         $blogCategories = [];
         $blogTags = [];
 
-
-        $blog = Blog::create([
-            'title' => $request->title,
-            'post' => $request->post,
-            'post_excerpt' => $request->post_excerpt,
-            'user_id' => Auth::user()->id,
-            'metaDescription' => $request->metaDescription,
-            'jsonData' => $request->jsonData,
-        ]);
-        // insert blog categories
-        foreach($categories as $c){
-            array_push($blogCategories, ['category_id' => $c, 'blog_id' => $blog->id]);
+        DB::beginTransaction();
+        try{
+            $blog = Blog::create([
+                'title' => $request->title,
+                'post' => $request->post,
+                'post_excerpt' => $request->post_excerpt,
+                'user_id' => Auth::user()->id,
+                'metaDescription' => $request->metaDescription,
+                'jsonData' => $request->jsonData,
+            ]);
+            // insert blog categories
+            foreach($categories as $c){
+                array_push($blogCategories, ['category_id' => $c, 'blog_id' => $blog->id]);
+            }
+            Blogcategory::insert($blogCategories);
+            // insert blog tags
+            foreach($tags as $t){
+                array_push($blogTags, ['tag_id' => $t, 'blog_id' => $blog->id]);
+            }
+            Blogtag::insert($blogTags);
+            DB::commit();
+            return 'done';
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return 'not done';
         }
-        Blogcategory::insert($blogCategories);
-        // insert blog tags
-        foreach($tags as $t){
-            array_push($blogTags, ['tag_id' => $t, 'blog_id' => $blog->id]);
-        }
-        Blogtag::insert($blogTags);
 
 
-        // foreach($categories as $c){
-        //     Blogcategory::create([
-        //         'category_id' => $c,
-        //         'blog_id' => $blog->id,
-        //     ]);
-        // }
 
-        return 'done';
+
     }
 }

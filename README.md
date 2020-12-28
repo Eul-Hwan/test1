@@ -36,3 +36,4 @@
 035. 2020-12-27 038강 5분19초 부분 Laravel8에서는 DB title부분에 null을 허용해줘야 한다. 038강까지 Generate unique slug using Laravel mutator
 036. 2020-12-27 039강 Laravel versioning using mix and blog creation (DB jsonData추가)
 037. 2020-12-27 040강 Add multiple categories and tags using single query
+038. 2020-12-28 041강 Laravel eloquent transection for data Consistencey
