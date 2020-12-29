@@ -44,6 +44,9 @@ Route::post('createBlog', 'AdminController@uploadEditorImage');
 
 Route::get('slug', 'AdminController@slug');
 
+Route::get('blogdata', 'AdminController@blogdata');
+
+
 Route::get('/logout', 'AdminController@logout');
 Route::get('/', 'AdminController@index');
 Route::any('{slug}', 'AdminController@index');

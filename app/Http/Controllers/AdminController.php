@@ -332,9 +332,9 @@ class AdminController extends Controller
             DB::rollback();
             return 'not done';
         }
-
-
-
-
+    }
+    public function blogdata()
+    {
+        return Blog::with(['tag', 'cat'])->get();
     }
 }

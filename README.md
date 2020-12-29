@@ -37,3 +37,4 @@
 036. 2020-12-27 039강 Laravel versioning using mix and blog creation (DB jsonData추가)
 037. 2020-12-27 040강 Add multiple categories and tags using single query
 038. 2020-12-28 041강 Laravel eloquent transection for data Consistencey
+039. 2020-12-30 042강 Laravel belongToMany relationship (pivot table)
