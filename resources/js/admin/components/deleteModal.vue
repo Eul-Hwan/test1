@@ -11,7 +11,7 @@
                 <span>Delete confirmation</span>
             </p>
             <div style="text-align:center">
-                <p>Are you sure you want to delete tag?</p>
+                <p>{{getDeleteModalObj.msg}}</p>
             </div>
             <div slot="footer">
                 <Button type="default" size="large" @click="closeModal">Close</Button>
@@ -35,7 +35,7 @@ export default {
             const res = await this.callApi('post', this.getDeleteModalObj.deleteUrl, this.getDeleteModalObj.data)
             if(res.status===200){
                 // this.tags.splice(this.deletingIndex, 1)
-                this.s('Tag has been deleted successfully!')
+                this.s(this.getDeleteModalObj.successMsg)
                 this.$store.commit('setDeleteModal', true)
             }else{
                 this.swr()

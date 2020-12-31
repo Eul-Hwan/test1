@@ -18,6 +18,7 @@ import login from './admin/pages/login'
 import role from './admin/pages/role'
 import assignRole from './admin/pages/assignRole'
 import createBlog from './admin/pages/createBlog'
+import blogs from './admin/pages/blogs'
 
 const routes = [
     // vuex basic
@@ -46,6 +47,11 @@ const routes = [
         path: '/createBlog',
         component: createBlog,
         name: 'createBlog'
+    },
+    {
+        path: '/blogs',
+        component: blogs,
+        name: 'blogs'
     },
 
 

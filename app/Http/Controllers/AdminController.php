@@ -310,6 +310,7 @@ class AdminController extends Controller
         try{
             $blog = Blog::create([
                 'title' => $request->title,
+                'slug' => $request->title,
                 'post' => $request->post,
                 'post_excerpt' => $request->post_excerpt,
                 'user_id' => Auth::user()->id,
@@ -335,6 +336,10 @@ class AdminController extends Controller
     }
     public function blogdata()
     {
-        return Blog::with(['tag', 'cat'])->get();
+        return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->get();
+    }
+    public function deleteBlog(Request $request)
+    {
+        return Blog::where('id', $request->id)->delete();
     }
 }

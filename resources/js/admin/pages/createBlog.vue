@@ -113,6 +113,7 @@ export default {
             if(res.status===200){
                 this.s('Blog has been created successfully~!')
                 // redirect...
+                this.$router.push('/blogs')
             }else{
                 this.swr()
             }
