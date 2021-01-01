@@ -44,7 +44,9 @@ class AdminController extends Controller
         $permission = json_decode($user->role->permission);
 
         $hasPermission = false;
+
         if(!$permission) return view('welcome');
+
         foreach($permission as $p){
             if($p->name==$request->path()){
                 if($p->read){
@@ -53,6 +55,8 @@ class AdminController extends Controller
             }
         }
         if($hasPermission) return view('welcome');
+
+        return view('welcome');
         return view('notfound');
     }
     public function logout()
@@ -341,5 +345,9 @@ class AdminController extends Controller
     public function deleteBlog(Request $request)
     {
         return Blog::where('id', $request->id)->delete();
+    }
+    public function singleBlogItem(Request $request, $id)
+    {
+        return Blog::with(['tag', 'cat'])->where('id', $id)->first();
     }
 }

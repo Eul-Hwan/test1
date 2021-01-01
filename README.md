@@ -40,3 +40,4 @@
 039. 2020-12-30 042강 Laravel belongToMany relationship (pivot table)
 040. 2020-12-31 043강 Blog page, delete modal bug fix and vscode user snippets 
 041. 2021-01-01 044강 Deleting categories and tags authomatically when deleting the blog, MySQL ON DELETE CASCADE
+042. 2021-01-01 045강 Editing blog page, solving vue dynamic route bug and showing in edit form

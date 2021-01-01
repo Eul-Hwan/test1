@@ -21,7 +21,7 @@
             <ul class="_1side_menu_list_ul">
 
               <li v-for="(menuItem, i) in permission" :key="i" v-if="permission.length && menuItem.read">
-                  <router-link :to="menuItem.name"><Icon type="ios-speedometer" /> {{menuItem.resourceName}}</router-link>
+                  <router-link :to="'/'+menuItem.name"><Icon type="ios-speedometer" /> {{menuItem.resourceName}}</router-link>
               </li>
 
 

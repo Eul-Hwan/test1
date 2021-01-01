@@ -40,6 +40,7 @@ Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
     Route::post('/create-blog', 'AdminController@createBlog');
     Route::get('blogsdata', 'AdminController@blogdata'); // get the blogs item
     Route::post('delete_blog', 'AdminController@deleteBlog');
+    Route::get('blog_single/{id}', 'AdminController@singleBlogItem');
 });
 
 Route::post('createBlog', 'AdminController@uploadEditorImage');
@@ -51,7 +52,8 @@ Route::get('blogdata', 'AdminController@blogdata');
 
 Route::get('/logout', 'AdminController@logout');
 Route::get('/', 'AdminController@index');
-Route::any('{slug}', 'AdminController@index');
+Route::any('{slug}', 'AdminController@index')->where('slug', '([-a-z/0-9_\s]+)');
+// Route::any('{slug}', 'AdminController@index')->where('slug', '([A-z\d-\/_.]+)?');
 
 // Route::get('/', function () {
 //     return view('welcome');
