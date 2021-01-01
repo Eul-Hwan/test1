@@ -38,4 +38,5 @@
 037. 2020-12-27 040강 Add multiple categories and tags using single query
 038. 2020-12-28 041강 Laravel eloquent transection for data Consistencey
 039. 2020-12-30 042강 Laravel belongToMany relationship (pivot table)
-040. 2020-12-21 043강 Blog page, delete modal bug fix and vscode user snippets 
+040. 2020-12-31 043강 Blog page, delete modal bug fix and vscode user snippets 
+041. 2021-01-01 044강 Deleting categories and tags authomatically when deleting the blog, MySQL ON DELETE CASCADE
