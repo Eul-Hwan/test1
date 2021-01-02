@@ -41,3 +41,4 @@
 040. 2020-12-31 043강 Blog page, delete modal bug fix and vscode user snippets 
 041. 2021-01-01 044강 Deleting categories and tags authomatically when deleting the blog, MySQL ON DELETE CASCADE
 042. 2021-01-01 045강 Editing blog page, solving vue dynamic route bug and showing in edit form
+043. 2021-01-02 046강 중간에 not done은 계속 진행하면 editblog.vue 변경 후 해결됨 End of admin panel blog and fix editor.js initData bug

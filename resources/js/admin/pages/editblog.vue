@@ -5,14 +5,14 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Role Management <Button @click="addModal=true"><Icon type="md-add" /> Add a new role</Button></p>
+					<p class="_title0">Update blog</p>
 
                     <div class="_input_field">
                         <Input type="text" v-model="data.title" placeholder="Title" />
                     </div>
 
 					<div class="_overflow _table_div blog_editor">
-                        <editor
+                        <editor v-if="initData"
                             ref="editor"
                             autofocus
                             holer-id="codex-editor"
@@ -45,7 +45,7 @@
 
 
                     <div class="_input_field">
-                        <Button @click="save" :loading="isCreating" :disabled="isCreating">{{isCreating ? 'Please wait...' : 'Create blog'}}</Button>
+                        <Button @click="save" :loading="isCreating" :disabled="isCreating">{{isCreating ? 'Please wait...' : 'Update blog'}}</Button>
 					</div>
 				</div>
 
@@ -83,24 +83,6 @@ export default {
     },
 
     methods : {
-        async add() {
-            if(this.data.roleName.trim()=='') return this.e('Role name is required')
-            const res = await this.callApi('post', 'app/create_role', this.data)
-            if(res.status===201){
-                this.tags.unshift(res.data)
-                this.s('Role has added successfully!')
-                this.addModal = false
-                this.data.roleName = ''
-            }else{
-                if(res.status==422){
-                    if(res.data.errors.roleName){
-                        this.e(res.data.errors.roleName[0])
-                    }
-                }else{
-                    this.swr()
-                }
-            }
-        },
 
         async onSave(response){
             var data = response
@@ -108,18 +90,31 @@ export default {
             await this.outputHtml(data.blocks)
             this.data.post = this.articleHTML
             this.data.jsonData = JSON.stringify(data)
+            if(this.data.post.trim()=='') return this.e('Post is required')
+            if(this.data.title.trim()=='') return this.e('Title is required')
+            if(this.data.post_excerpt.trim()=='') return this.e('Post exerpt is required')
+            if(this.data.metaDescription.trim()=='') return this.e('Meta description is required')
+            if(!this.data.tag_id.length) return this.e('Tag is required')
+            if(!this.data.category_id.length) return this.e('Category is required')
+
+
             this.isCreating = true
-            const res = await this.callApi('post', 'app/create-blog', this.data)
+            const res = await this.callApi('post', `/app/update_blog/${this.$route.params.id}`, this.data)
             if(res.status===200){
-                this.s('Blog has been created successfully~!')
+				this.s('Blog has been updated successfully!')
                 // redirect...
                 this.$router.push('/blogs')
-            }else{
-                this.swr()
-            }
-            this.isCreating = false
-            // console.log(this.articleHTML)
-            // console.log(data)
+			}else{
+                if(res.status==422){
+                    for(let i in res.data.errors){
+                        this.e(res.data.errors[i][0])
+                    }
+                }else{
+                    this.swr()
+                }
+
+			}
+			this.isCreating = false
         },
         async save(){
             this.$refs.editor.save()
@@ -190,14 +185,15 @@ export default {
             // this.data = blog.data
             // this.blog = blog.data
             // this.initData = JSON.parse(this.blog.jsonData)
+            console.log(JSON.parse(blog.data.jsonData))
             this.initData = JSON.parse(blog.data.jsonData)
             this.category = cat.data
             this.tag = tag.data
 
-            for(let t of tag.data){
+            for(let t of blog.data.tag){
                 this.data.tag_id.push(t.id)
             }
-            for(let c of cat.data){
+            for(let c of blog.data.cat){
                 this.data.category_id.push(c.id)
             }
             this.data.title = blog.data.title

@@ -338,6 +338,52 @@ class AdminController extends Controller
             return 'not done';
         }
     }
+
+    // update blog
+    public function updateBolg(Request $request, $id)
+    {
+        $categories = $request->category_id;
+        $tags = $request->tag_id;
+        $blogCategories = [];
+        $blogTags = [];
+
+        DB::beginTransaction();
+        try{
+            $blog = Blog::where('id', $id)->update([
+                'title' => $request->title,
+                'slug' => $request->title,
+                'post' => $request->post,
+                'post_excerpt' => $request->post_excerpt,
+                'user_id' => Auth::user()->id,
+                'metaDescription' => $request->metaDescription,
+                'jsonData' => $request->jsonData,
+            ]);
+
+
+            // insert blog categories
+            foreach($categories as $c){
+                array_push($blogCategories, ['category_id' => $c, 'blog_id' => $id]);
+            }
+            // delete all previous categories
+            Blogcategory::where('blog_id', $id)->delete();
+            // Blogcategory::where('blog_id', $id)->truncate();
+            Blogcategory::insert($blogCategories);
+            // insert blog tags
+            foreach($tags as $t){
+                array_push($blogTags, ['tag_id' => $t, 'blog_id' => $id]);
+            }
+            Blogtag::where('blog_id', $id)->delete();
+            // Blogtag::where('blog_id', $id)->truncate();
+            Blogtag::insert($blogTags);
+            DB::commit();
+            return 'done';
+        } catch (\Throwable $th) {
+            // return $th;
+            DB::rollback();
+            return 'not done';
+        }
+    }
+
     public function blogdata()
     {
         return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->get();

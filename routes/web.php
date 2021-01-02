@@ -41,6 +41,7 @@ Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
     Route::get('blogsdata', 'AdminController@blogdata'); // get the blogs item
     Route::post('delete_blog', 'AdminController@deleteBlog');
     Route::get('blog_single/{id}', 'AdminController@singleBlogItem');
+    Route::post('update_blog/{id}', 'AdminController@updateBolg');
 });
 
 Route::post('createBlog', 'AdminController@uploadEditorImage');
